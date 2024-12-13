@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        ClampMovement();
     }
 
     private void MovePlayer()
@@ -21,11 +22,13 @@ public class PlayerMovement : MonoBehaviour
         float inputH = Input.GetAxisRaw("Horizontal");
         float inputV = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(inputH, inputV).normalized * _velocity * Time.deltaTime);
+   
+    }
 
+    private void ClampMovement()
+    {
         float xClamped = Mathf.Clamp(transform.position.x, -8.41f, 8.41f);
         float yClamped = Mathf.Clamp(transform.position.y, -4.46f, 4.46f);
-        transform.position = new Vector2(xClamped, yClamped);   
-
-
+        transform.position = new Vector2(xClamped, yClamped);
     }
 }
